@@ -21,12 +21,16 @@ class NBAPlayer < Client
   end
 
   def nicknames
-    result = /\((.*)\)/.match(info_box.at_css('.margin_top').content)
+    result = /\((.*)\)/.match(name_line)
     result ? result[1].split(', ') : []
   end
 
   def nickname
     nicknames.first
+  end
+
+  def twitter_handle
+    name_line.include?('Twitter') ? name_line.split.last : nil
   end
 
   def debuggin
@@ -41,6 +45,10 @@ class NBAPlayer < Client
 
   def info_box
     page.at_css('#info_box')
+  end
+
+  def name_line
+    info_box.at_css('.margin_top').content
   end
 
   def page
