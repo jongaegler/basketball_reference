@@ -6,14 +6,15 @@ class NBAPlayer < Client
   def initialize(name, name_id = '1')
     @name = name.downcase
     @name_id = name_id
+    raise 'Player not found' if page == false
   end
 
   def first_name
-    name.split.first
+    name.split.first.capitalize
   end
 
   def last_name
-    name.split.last
+    name.split.last.capitalize
   end
 
   def player_url
@@ -40,7 +41,7 @@ class NBAPlayer < Client
   private
 
   def player_path
-    "#{last_name[0]}/#{last_name[0..4]}#{first_name[0..1]}0#{name_id}"
+    "#{last_name[0]}/#{last_name[0..4]}#{first_name[0..1]}0#{name_id}".downcase
   end
 
   def info_box
