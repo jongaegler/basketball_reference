@@ -10,6 +10,10 @@ class Client
     page_found?(page) ? page : false
   end
 
+  def search_segments_without_ids(search_string)
+
+  end
+
   private
 
   def page_found?(page)
