@@ -28,4 +28,26 @@ describe NBAPlayer, 'NBAPlayer' do
       mj.player_url
     )
   end
+
+  it 'should return their height' do
+    assert_equal('6-6', mj.height)
+  end
+
+  it 'should return their weight' do
+    assert_equal(195, mj.weight)
+  end
+
+  it 'should return their high school' do
+    assert_equal('Emsley A. Laney', mj.high_school)
+  end
+
+  it 'should return their college' do
+    assert_equal('University of North Carolina', mj.college)
+  end
+
+  it 'should return draft info' do
+    assert(mj.drafted?)
+    assert_equal(1984, mj.drafted)
+    assert_equal('Chicago Bulls', mj.drafted_by)
+  end
 end
