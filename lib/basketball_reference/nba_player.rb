@@ -22,16 +22,9 @@ class NBAPlayer < Client
   end
 
   def positions
-    search_segments_without_ids(personal_info, 'Position')
-    found = false
-
-    personal_info.each do |segment|
-      break segment.text if found
-
-      if segment.text.contains?('Position')
-        found = true
-      end
-    end
+    raw_position_string = search_segments_without_ids(personal_info, 'Position')
+    # strange whitespace character found at the end
+    raw_position_string[1..-4].split(' and ')
   end
 
   def dob
@@ -83,7 +76,7 @@ class NBAPlayer < Client
     node_set.each do |node|
       break node.text if found
 
-      if node.text.contains?('Position')
+      if node.text.include?('Position')
         found = true
       end
     end
