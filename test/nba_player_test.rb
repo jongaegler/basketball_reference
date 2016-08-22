@@ -1,8 +1,8 @@
 require 'test_helper'
 
-describe NBAPlayer, 'NBAPlayer' do
-  let(:mj) { NBAPlayer.new('Michael Jordan') }
-  let(:kat) { NBAPlayer.new('Karl Anthony Towns') }
+describe BasketballReference::NBAPlayer, 'NBAPlayer' do
+  let(:mj) { BasketballReference::NBAPlayer.new('Michael Jordan') }
+  let(:kat) { BasketballReference::NBAPlayer.new('Karl Anthony Towns') }
 
   it 'should return last_name' do
     assert_equal('Jordan', mj.last_name)
