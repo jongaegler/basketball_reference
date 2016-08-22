@@ -6,7 +6,11 @@ class NBAPlayer < Client
   def initialize(name, name_id = '1')
     @name = name.downcase
     @name_id = name_id
-    raise 'Player not found' if page == false
+    raise 'Player not found' if open_webpage(player_url) == false
+  end
+
+  def player_url
+    "#{URL}/players/" + player_path + '.html'
   end
 
   def first_name
@@ -25,10 +29,6 @@ class NBAPlayer < Client
     search_segments_without_ids(personal_info, 'Weight').to_i
   end
 
-  def player_url
-    "#{URL}/players/" + player_path + '.html'
-  end
-
   def positions
     search_segments_without_ids(personal_info, 'Position').split(' and ')
   end
@@ -37,24 +37,38 @@ class NBAPlayer < Client
     search_segments_without_ids(personal_info, 'High School').split(' in').first
   end
 
+  def college?
+    info_box.at_css("a[href*='college']").any?
+  end
+
   def college
-    info_box.at_css("a[href*='college']").text
+    college? ? info_box.at_css("a[href*='college']").text : 'None'
   end
 
   def shooting_hand
     search_segments_without_ids(personal_info, 'Shoots')
   end
 
-  def drafted_by
-    drafted? ? info_box.css("a[href*='draft']").first.text : 'Undrafted'
-  end
-
-  def drafted
-    drafted? ? info_box.css("a[href*='draft']").last.text.to_i : 'Undrafted'
-  end
-
   def drafted?
     page.css("a[href*='draft']").any?
+  end
+
+  def drafted_by
+    drafted? ? info_box.css("a[href*='draft']").first.text : nil
+  end
+
+  def drafted_in
+    drafted? ? info_box.css("a[href*='draft']").last.text.to_i : nil
+  end
+
+  def draft_pick
+    if drafted?
+      info_box.each do |node|
+        break node.text.scan(/\d/).last.to_i if node.text.include? 'pick'
+      end
+    else
+      nil
+    end
   end
 
   def dob
@@ -65,10 +79,6 @@ class NBAPlayer < Client
   def nicknames
     result = /\((.*)\)/.match(name_line)
     result ? result[1].split(', ') : []
-  end
-
-  def nickname
-    nicknames.first
   end
 
   def twitter_handle
@@ -99,7 +109,7 @@ class NBAPlayer < Client
   end
 
   def page
-    open_webpage(player_url)
+    @page ||= open_webpage(player_url)
   end
 
   def cleanup_characters(string)

@@ -49,5 +49,6 @@ describe NBAPlayer, 'NBAPlayer' do
     assert(mj.drafted?)
     assert_equal(1984, mj.drafted)
     assert_equal('Chicago Bulls', mj.drafted_by)
+    assert_equal(3, mj.draft_pick)
   end
 end
