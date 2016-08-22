@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe NBAPlayer, 'NBAPlayer' do
   let(:mj) { NBAPlayer.new('Michael Jordan') }
-  let(:kat) {NBAPlayer.new('Karl Anthony Towns')}
+  let(:kat) { NBAPlayer.new('Karl Anthony Towns') }
 
   it 'should return last_name' do
     assert_equal('Jordan', mj.last_name)
@@ -47,7 +47,7 @@ describe NBAPlayer, 'NBAPlayer' do
 
   it 'should return draft info' do
     assert(mj.drafted?)
-    assert_equal(1984, mj.drafted)
+    assert_equal(1984, mj.drafted_in)
     assert_equal('Chicago Bulls', mj.drafted_by)
     assert_equal(3, mj.draft_pick)
   end

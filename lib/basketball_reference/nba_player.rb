@@ -63,7 +63,7 @@ class NBAPlayer < Client
 
   def draft_pick
     if drafted?
-      info_box.each do |node|
+      personal_info.each do |node|
         break node.text.scan(/\d/).last.to_i if node.text.include? 'pick'
       end
     else
