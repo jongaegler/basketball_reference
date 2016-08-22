@@ -45,6 +45,11 @@ class NBAPlayer < Client
     college? ? info_box.at_css("a[href*='college']").text : 'None'
   end
 
+  def hof?
+    info_box.css("a[href$='hof.html']").any?
+  end
+  alias_method :hall_of_fame?, :hof?
+
   def shooting_hand
     search_segments_without_ids(personal_info, 'Shoots')
   end

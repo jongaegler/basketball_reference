@@ -33,6 +33,10 @@ describe NBAPlayer, 'NBAPlayer' do
     assert_equal('6-6', mj.height)
   end
 
+  it 'should return hall of fame status' do
+    assert_equal(true, mj.hof?)
+  end
+
   it 'should return their weight' do
     assert_equal(195, mj.weight)
   end
