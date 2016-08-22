@@ -95,8 +95,7 @@ module BasketballReference
       page
     end
 
-    #TODO: Make private
-    #private
+    private
 
     def player_path
       "#{last_name[0]}/#{last_name[0..4]}#{first_name[0..1]}0#{name_id}".downcase
