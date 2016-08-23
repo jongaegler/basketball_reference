@@ -1,7 +1,7 @@
 require_relative 'client'
 
 module BasketballReference
-  class NBAPlayer < Client
+  class Player < Client
     attr_accessor :name, :name_id
 
     def initialize(name, name_id = '1')
@@ -43,7 +43,7 @@ module BasketballReference
     end
 
     def college
-      college? ? info_box.at_css("a[href*='college']").text : 'None'
+      college? ? info_box.at_css("a[href*='college']").text : nil
     end
 
     def hof?
