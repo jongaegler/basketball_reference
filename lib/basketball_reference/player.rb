@@ -34,6 +34,10 @@ module BasketballReference
       search_segments_without_ids(personal_info, 'Position').split(' and ')
     end
 
+    def position
+      positions.first
+    end
+
     def high_school
       search_segments_without_ids(personal_info, 'High School').split(' in').first
     end
@@ -70,7 +74,7 @@ module BasketballReference
     def draft_pick
       if drafted?
         personal_info.each do |node|
-          break node.text.scan(/\d/).last.to_i if node.text.include? 'pick'
+          break node.text.scan(/\d\d?/).last.to_i if node.text.include? 'pick'
         end
       else
         nil
